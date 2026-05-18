@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shakshi Gupta — Creative Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0d0b;
+    --bg2: #141410;
+    --cream: #f0ece3;
+    --cream-muted: #9b9589;
+    --gold: #c9a96e;
+    --gold-dim: #8a6e44;
+    --border: rgba(201,169,110,0.18);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── CURSOR ── */
+  .cursor {
+    width: 8px; height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transition: transform 0.15s ease, opacity 0.3s;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(201,169,110,0.4);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transition: transform 0.35s ease, width 0.3s, height 0.3s;
+    transform: translate(-50%, -50%);
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 28px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(13,13,11,0.95) 0%, transparent 100%);
+    backdrop-filter: blur(2px);
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    color: var(--cream);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cream-muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: flex-end; align-items: flex-start;
+    padding: 0 60px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 70% 40%, rgba(201,169,110,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 50% at 20% 80%, rgba(201,169,110,0.04) 0%, transparent 60%);
+  }
+  .hero-line {
+    position: absolute; top: 0; right: 180px;
+    width: 1px; height: 100%;
+    background: linear-gradient(to bottom, transparent, var(--border) 30%, var(--border) 70%, transparent);
+  }
+  .hero-index {
+    font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 32px; position: relative; z-index: 1;
+    opacity: 0; animation: fadeUp 1s 0.3s forwards;
+  }
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(64px, 9vw, 130px);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    position: relative; z-index: 1;
+    opacity: 0; animation: fadeUp 1s 0.5s forwards;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-sub {
+    margin-top: 40px;
+    max-width: 420px;
+    font-size: 15px;
+    color: var(--cream-muted);
+    line-height: 1.8;
+    position: relative; z-index: 1;
+    opacity: 0; animation: fadeUp 1s 0.8s forwards;
+  }
+  .hero-cta {
+    margin-top: 48px;
+    display: flex; gap: 24px; align-items: center;
+    position: relative; z-index: 1;
+    opacity: 0; animation: fadeUp 1s 1s forwards;
+  }
+  .btn-primary {
+    display: inline-block;
+    padding: 14px 36px;
+    border: 1px solid var(--gold);
+    color: var(--bg);
+    background: var(--gold);
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+  }
+  .btn-primary:hover { background: transparent; color: var(--gold); }
+  .btn-ghost {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--cream-muted); text-decoration: none;
+    display: flex; align-items: center; gap: 10px;
+    transition: color 0.3s;
+  }
+  .btn-ghost:hover { color: var(--cream); }
+  .btn-ghost::after { content: '→'; }
+  .hero-counter {
+    position: absolute; right: 60px; bottom: 80px; z-index: 1;
+    writing-mode: vertical-rl;
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--cream-muted);
+    opacity: 0; animation: fadeUp 1s 1.2s forwards;
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-wrap {
+    overflow: hidden; border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+    background: var(--bg2);
+  }
+  .marquee-track {
+    display: flex; gap: 0;
+    animation: marquee 22s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-item {
+    display: flex; align-items: center; gap: 40px;
+    padding: 0 40px;
+    font-family: var(--serif);
+    font-size: 20px; font-style: italic;
+    color: var(--cream-muted);
+  }
+  .marquee-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+
+  /* ── SECTIONS ── */
+  section { padding: 120px 60px; }
+
+  .section-label {
+    font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .section-label::after {
+    content: ''; flex: 0 0 40px; height: 1px; background: var(--gold-dim);
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+    align-items: center; max-width: 1100px;
+  }
+  .about-heading {
+    font-family: var(--serif);
+    font-size: clamp(38px, 4vw, 58px);
+    font-weight: 300; line-height: 1.15;
+  }
+  .about-heading em { font-style: italic; color: var(--gold); }
+  .about-text { color: var(--cream-muted); font-size: 15px; line-height: 1.85; }
+  .about-text p + p { margin-top: 20px; }
+  .about-stats {
+    margin-top: 48px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+  }
+  .stat-val {
+    font-family: var(--serif); font-size: 44px; font-weight: 300;
+    color: var(--gold); line-height: 1;
+  }
+  .stat-label {
+    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--cream-muted); margin-top: 8px;
+  }
+
+  /* ── PORTFOLIO ── */
+  .portfolio { background: var(--bg2); }
+  .portfolio-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    margin-top: 60px;
+  }
+  .portfolio-card {
+    position: relative; overflow: hidden;
+    aspect-ratio: 4/3;
+    background: #1a1a16;
+    cursor: pointer; text-decoration: none;
+    display: block;
+  }
+  .portfolio-card-inner {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 32px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+    transform: translateY(20px); opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+  }
+  .portfolio-card:hover .portfolio-card-inner { transform: translateY(0); opacity: 1; }
+  .portfolio-card-icon {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.4s ease;
+  }
+  .portfolio-card:hover .portfolio-card-icon { transform: scale(1.05); }
+  .card-platform {
+    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 8px;
+  }
+  .card-title {
+    font-family: var(--serif); font-size: 26px; font-weight: 300; line-height: 1.2;
+    color: var(--cream);
+  }
+  .card-desc { font-size: 13px; color: rgba(240,236,227,0.6); margin-top: 8px; }
+  .card-arrow {
+    position: absolute; top: 28px; right: 28px;
+    font-size: 20px; color: var(--gold);
+    opacity: 0; transform: translate(-4px, 4px);
+    transition: all 0.3s 0.1s;
+  }
+  .portfolio-card:hover .card-arrow { opacity: 1; transform: translate(0,0); }
+
+  /* Card backgrounds */
+  .card-dribbble { background: #1a1218; }
+  .card-behance  { background: #10121a; }
+  .card-drive    { background: #111a13; }
+
+  .card-dribbble .card-icon-bg {
+    width: 100px; height: 100px; border-radius: 50%;
+    border: 1px solid rgba(234,76,137,0.2);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .card-behance .card-icon-bg {
+    width: 100px; height: 100px; border-radius: 8px;
+    border: 1px solid rgba(23,119,242,0.2);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .card-drive .card-icon-bg {
+    width: 100px; height: 100px; border-radius: 8px;
+    border: 1px solid rgba(52,168,83,0.2);
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* SVG icons in cards */
+  .icon-drib { width: 52px; height: 52px; }
+  .icon-beh  { width: 52px; height: 32px; }
+  .icon-drv  { width: 52px; height: 44px; }
+
+  /* ── CAPABILITIES ── */
+  .caps-list {
+    margin-top: 60px;
+    border-top: 1px solid var(--border);
+  }
+  .cap-item {
+    display: grid; grid-template-columns: 60px 1fr auto;
+    align-items: center; gap: 40px;
+    padding: 36px 0;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.3s;
+  }
+  .cap-item:hover { padding-left: 12px; background: rgba(201,169,110,0.03); }
+  .cap-num { font-family: var(--serif); font-size: 13px; color: var(--gold-dim); }
+  .cap-title {
+    font-family: var(--serif); font-size: 28px; font-weight: 300;
+  }
+  .cap-tag {
+    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--cream-muted); padding: 6px 16px;
+    border: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  /* ── CONTACT ── */
+  .contact { text-align: center; }
+  .contact-heading {
+    font-family: var(--serif);
+    font-size: clamp(48px, 7vw, 100px);
+    font-weight: 300; line-height: 1;
+    max-width: 900px; margin: 0 auto 48px;
+  }
+  .contact-heading em { font-style: italic; color: var(--gold); }
+  .contact-links {
+    display: flex; gap: 32px; justify-content: center; flex-wrap: wrap;
+  }
+  .contact-link {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--cream-muted); text-decoration: none;
+    padding: 14px 30px; border: 1px solid var(--border);
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .contact-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 32px 60px;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  footer p { font-size: 12px; color: var(--cream-muted); letter-spacing: 0.05em; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .reveal {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 24px 28px; }
+    .nav-links { display: none; }
+    .hero { padding: 0 28px 60px; }
+    section { padding: 80px 28px; }
+    .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 12px; text-align: center; }
+    .hero-line { display: none; }
+    .hero-counter { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- nav -->
+<nav>
+  <a href="#" class="nav-logo">SG</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- hero -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-line"></div>
+  <p class="hero-index">Creative Designer &amp; Visual Artist</p>
+  <h1 class="hero-title">
+    Shakshi<br /><em>Gupta</em>
+  </h1>
+  <p class="hero-sub">Always been keen and explorative — crafting visual stories that blend intuition with craft, and curiosity with precision.</p>
+  <div class="hero-cta">
+    <a href="#work" class="btn-primary">View Work</a>
+    <a href="#contact" class="btn-ghost">Get in touch</a>
+  </div>
+  <p class="hero-counter">Portfolio — 2025</p>
+</section>
+
+<!-- marquee -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <!-- double for seamless loop -->
+    <span class="marquee-item"><span class="marquee-dot"></span>Visual Design</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Brand Identity</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>UI / UX</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Creative Direction</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Illustration</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Typography</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Visual Design</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Brand Identity</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>UI / UX</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Creative Direction</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Illustration</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Typography</span>
+  </div>
+</div>
+
+<!-- about -->
+<section id="about">
+  <p class="section-label reveal">About me</p>
+  <div class="about-grid">
+    <div>
+      <h2 class="about-heading reveal">Designing with <em>intention</em>, powered by curiosity.</h2>
+      <div class="about-stats reveal">
+        <div>
+          <div class="stat-val">∞</div>
+          <div class="stat-label">Ideas Explored</div>
+        </div>
+        <div>
+          <div class="stat-val">3+</div>
+          <div class="stat-label">Platforms</div>
+        </div>
+        <div>
+          <div class="stat-val">100%</div>
+          <div class="stat-label">Passion</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <p>I'm Shakshi Gupta — a creative designer who believes that every visual is a conversation. My work lives at the intersection of aesthetics and function, where bold ideas meet thoughtful execution.</p>
+      <p>With a deep love for exploration, I'm always pushing the boundaries of what design can say. From editorial illustrations to digital experiences, I approach each project with fresh eyes and genuine curiosity.</p>
+      <p>My creative work spans Dribbble, Behance, and beyond — a collection of experiments, passion projects, and professional work that reflects an ever-evolving design sensibility.</p>
+    </div>
+  </div>
+</section>
+
+<!-- portfolio -->
+<section id="work" class="portfolio">
+  <p class="section-label reveal">Collection of work</p>
+  <h2 class="about-heading reveal" style="max-width:600px;">Where the <em>work</em> lives.</h2>
+
+  <div class="portfolio-grid reveal">
+
+    <!-- Dribbble -->
+    <a href="https://dribbble.com/SGUPTA01" target="_blank" class="portfolio-card card-dribbble">
+      <div class="portfolio-card-icon">
+        <div class="card-icon-bg">
+          <svg class="icon-drib" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="26" cy="26" r="24" stroke="rgba(234,76,137,0.35)" stroke-width="1"/>
+            <circle cx="26" cy="26" r="18" stroke="rgba(234,76,137,0.25)" stroke-width="1"/>
+            <path d="M10 20 Q18 14 26 17 Q34 20 42 16" stroke="rgba(234,76,137,0.6)" stroke-width="1.5" fill="none"/>
+            <path d="M8 28 Q16 32 24 30 Q32 28 44 34" stroke="rgba(234,76,137,0.6)" stroke-width="1.5" fill="none"/>
+            <circle cx="26" cy="26" r="6" fill="rgba(234,76,137,0.15)" stroke="rgba(234,76,137,0.5)" stroke-width="1"/>
+          </svg>
+        </div>
+      </div>
+      <div class="portfolio-card-inner">
+        <p class="card-platform">Dribbble</p>
+        <p class="card-title">Visual Shots</p>
+        <p class="card-desc">Design explorations, UI concepts & creative experiments</p>
+      </div>
+      <span class="card-arrow">↗</span>
+    </a>
+
+    <!-- Behance -->
+    <a href="https://www.behance.net/shakshigupta" target="_blank" class="portfolio-card card-behance">
+      <div class="portfolio-card-icon">
+        <div class="card-icon-bg">
+          <svg class="icon-beh" viewBox="0 0 60 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <text x="2" y="28" font-family="Georgia, serif" font-size="30" font-weight="300" fill="rgba(23,119,242,0.6)" letter-spacing="-2">Be</text>
+            <line x1="38" y1="8" x2="58" y2="8" stroke="rgba(23,119,242,0.35)" stroke-width="2"/>
+            <line x1="36" y1="18" x2="60" y2="18" stroke="rgba(23,119,242,0.5)" stroke-width="2"/>
+            <line x1="40" y1="28" x2="56" y2="28" stroke="rgba(23,119,242,0.35)" stroke-width="2"/>
+          </svg>
+        </div>
+      </div>
+      <div class="portfolio-card-inner">
+        <p class="card-platform">Behance</p>
+        <p class="card-title">Full Projects</p>
+        <p class="card-desc">In-depth case studies and curated creative projects</p>
+      </div>
+      <span class="card-arrow">↗</span>
+    </a>
+
+    <!-- Drive -->
+    <a href="https://drive.google.com/drive/folders/1UzlJWjvPXGVbpbSjgEtj9-KfruKbSW4Q" target="_blank" class="portfolio-card card-drive">
+      <div class="portfolio-card-icon">
+        <div class="card-icon-bg">
+          <svg class="icon-drv" viewBox="0 0 52 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 38 L2 14 L18 14 L32 38Z" fill="rgba(52,168,83,0.15)" stroke="rgba(52,168,83,0.4)" stroke-width="1" stroke-linejoin="round"/>
+            <path d="M36 38 L18 14 L36 14 L50 38Z" fill="rgba(66,133,244,0.15)" stroke="rgba(66,133,244,0.4)" stroke-width="1" stroke-linejoin="round"/>
+            <path d="M8 38 L36 38 L43 26 L16 26Z" fill="rgba(251,188,5,0.15)" stroke="rgba(251,188,5,0.4)" stroke-width="1" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="portfolio-card-inner">
+        <p class="card-platform">Google Drive</p>
+        <p class="card-title">Creative Archive</p>
+        <p class="card-desc">Raw files, assets & the complete creative collection</p>
+      </div>
+      <span class="card-arrow">↗</span>
+    </a>
+
+  </div>
+</section>
+
+<!-- expertise -->
+<section id="expertise">
+  <p class="section-label reveal">What I do</p>
+  <div class="caps-list reveal">
+    <div class="cap-item">
+      <span class="cap-num">01</span>
+      <span class="cap-title">Visual Identity & Branding</span>
+      <span class="cap-tag">Brand Design</span>
+    </div>
+    <div class="cap-item">
+      <span class="cap-num">02</span>
+      <span class="cap-title">UI / UX Design</span>
+      <span class="cap-tag">Digital</span>
+    </div>
+    <div class="cap-item">
+      <span class="cap-num">03</span>
+      <span class="cap-title">Illustration & Graphic Art</span>
+      <span class="cap-tag">Creative</span>
+    </div>
+    <div class="cap-item">
+      <span class="cap-num">04</span>
+      <span class="cap-title">Typography & Layout</span>
+      <span class="cap-tag">Editorial</span>
+    </div>
+    <div class="cap-item">
+      <span class="cap-num">05</span>
+      <span class="cap-title">Creative Direction</span>
+      <span class="cap-tag">Strategy</span>
+    </div>
+  </div>
+</section>
+
+<!-- contact -->
+<section id="contact" class="contact">
+  <h2 class="contact-heading reveal">Let's create something <em>beautiful</em> together.</h2>
+  <div class="contact-links reveal">
+    <a href="https://dribbble.com/SGUPTA01" target="_blank" class="contact-link">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1"/><path d="M2 5.5 Q5 4 7 5.5 Q9 7 12 5" stroke="currentColor" stroke-width="0.8" fill="none"/><path d="M1.5 8.5 Q4 10 6.5 9 Q9 8 12.5 10" stroke="currentColor" stroke-width="0.8" fill="none"/></svg>
+      Dribbble
+    </a>
+    <a href="https://www.behance.net/shakshigupta" target="_blank" class="contact-link">
+      <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><text x="0" y="9" font-family="serif" font-size="10" fill="currentColor">Be</text></svg>
+      Behance
+    </a>
+    <a href="https://drive.google.com/drive/folders/1UzlJWjvPXGVbpbSjgEtj9-KfruKbSW4Q" target="_blank" class="contact-link">
+      <svg width="14" height="12" viewBox="0 0 14 12" fill="none"><path d="M4 11 L0 4 L4 4 L8 11Z" stroke="currentColor" stroke-width="0.8" fill="none"/><path d="M10 11 L4 4 L10 4 L14 11Z" stroke="currentColor" stroke-width="0.8" fill="none"/><path d="M2 11 L10 11 L12 7.5 L4 7.5Z" stroke="currentColor" stroke-width="0.8" fill="none"/></svg>
+      Creative Work
+    </a>
+  </div>
+</section>
+
+<!-- footer -->
+<footer>
+  <p>© 2025 Shakshi Gupta. All rights reserved.</p>
+  <p style="letter-spacing:0.12em;">Designed with intention.</p>
+</footer>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.transform = `translate(${mx}px,${my}px) translate(-50%,-50%)`; });
+  function animRing() { rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12; ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`; requestAnimationFrame(animRing); }
+  animRing();
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => { ring.style.width = '56px'; ring.style.height = '56px'; ring.style.borderColor = 'rgba(201,169,110,0.7)'; });
+    el.addEventListener('mouseleave', () => { ring.style.width = '36px'; ring.style.height = '36px'; ring.style.borderColor = 'rgba(201,169,110,0.4)'; });
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
